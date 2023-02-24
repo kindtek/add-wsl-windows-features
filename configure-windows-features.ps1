@@ -1,4 +1,4 @@
-Write-Host "Running this script will install/enable the optional Windows features required for running Virtual Machines, WSL, and Powershell 2.0..." -ForegroundColor Magenta
+Write-Host "`r`nRunning this script will install/enable the optional Windows features required for running Virtual Machines, WSL, and Powershell 2.0...`r`n" -ForegroundColor Magenta
 # Write-Host "After the Windows features are enabled you will need to reboot your system for changes to take effect." -ForegroundColor Magenta
 
 $new_install = $false
