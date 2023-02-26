@@ -34,11 +34,12 @@ if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).St
 else {
     Write-Host "VM features already installed." -ForegroundColor DarkCyan
 }
-
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
     Write-Host "Installing VM features." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
     $new_install = $true
+
+
 } 
 else {
     Write-Host "Container features already installed." -ForegroundColor DarkCyan
@@ -64,8 +65,10 @@ else {
     Write-Host "PowerShell 2.0 feature already installed." -ForegroundColor DarkCyan
 }
 
-Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta
-$confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now" 
-if ($confirmation -ieq 'reboot now') {
-    Restart-Computer -Force
+if ($new_install -eq $true){
+    Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta
+    $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now" 
+    if ($confirmation -ieq 'reboot now') {
+        Restart-Computer -Force
+    }
 }
