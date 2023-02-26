@@ -28,18 +28,15 @@ if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).St
     Write-Host "Installing VM features." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
     $new_install = $true
-
-
 } 
 else {
     Write-Host "VM features already installed." -ForegroundColor DarkCyan
 }
+
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
     Write-Host "Installing VM features." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
     $new_install = $true
-
-
 } 
 else {
     Write-Host "Container features already installed." -ForegroundColor DarkCyan
