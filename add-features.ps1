@@ -1,22 +1,16 @@
-Write-Host "`r`nRunning this script will install/enable the optional Windows features required for running Virtual Machines, WSL, and Powershell 2.0...`r`n" -ForegroundColor Magenta
-# Write-Host "After the Windows features are enabled you will need to reboot your system for changes to take effect." -ForegroundColor Magenta
+Write-Host "`r`nThe following optional Windows features will now be installed:`r`n`t \
+- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Containers`r`n`t- Windows Linux Subsystem`r`n`t- Powershell 2.0" -ForegroundColor Magenta
 
+$new_install = $false
 $install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
-# @TODO: investigate code refactoring for duplicate code
-if ($install -ieq 'quit' -Or $install -ieq 'q') { 
-    Write-Host "Installing $software_name..."
-    Invoke-Expression $install_command
-    $host.UI.RawUI.BackgroundColor = "Black"
-}
-else {
+if ($install -ne 'quit' -Or $install -ne 'q') { 
     Write-Host "skipping $software_name install and exiting..."
     exit
 }
 
-$new_install = $false
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
-    Write-Host "Installing Microsoft Hyper-V features." -ForegroundColor DarkCyan
+    Write-Host "Installing Hyper-V ..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
     $new_install = $true
 } 
@@ -25,7 +19,7 @@ else {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
-    Write-Host "Installing VM features." -ForegroundColor DarkCyan
+    Write-Host "Installing VirtualMachinePlatform ..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
     $new_install = $true
 } 
@@ -34,7 +28,7 @@ else {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
-    Write-Host "Installing VM features." -ForegroundColor DarkCyan
+    Write-Host "Installing Containers ..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
     $new_install = $true
 } 
@@ -43,7 +37,7 @@ else {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
-    Write-Host "Installing WSL feature." -ForegroundColor DarkCyan
+    Write-Host "Installing WSL ..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
     $new_install = $true
 
