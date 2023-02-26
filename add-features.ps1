@@ -1,4 +1,4 @@
-Write-Host "`r`nThe following Windows features will now be installed:"
+Write-Host "`r`nThe following Windows features will now be installed:" -ForegroundColor Magenta
 Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Containers`r`n`t- Windows Linux Subsystem`r`n`t- Powershell 2.0" -ForegroundColor Magenta
 
 $new_install = $false
