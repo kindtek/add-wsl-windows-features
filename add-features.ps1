@@ -3,7 +3,7 @@ Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Containers`r`n`t-
 
 $new_install = $false
 $install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
-if ($install -ne 'quit' -Or $install -ne 'q') { 
+if ($install -ieq 'quit' -Or $install -ieq 'q') { 
     Write-Host "skipping $software_name install and exiting..."
     exit
 }
