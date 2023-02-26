@@ -2,7 +2,7 @@ Write-Host "`r`nThe following Windows features will now be installed:" -Foregrou
 Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Containers`r`n`t- Windows Linux Subsystem`r`n`t- Powershell 2.0" -ForegroundColor Magenta
 
 $new_install = $false
-$install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
+$install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit`r`n"
 if ($install -ieq 'quit' -Or $install -ieq 'q') { 
     Write-Host "skipping $software_name install and exiting..."
     exit
