@@ -18,7 +18,7 @@ $new_install = $false
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
     Write-Host "Installing Microsoft Hyper-V features." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
-$new_install = $true
+    $new_install = $true
 } 
 else {
     Write-Host "Hyper-V feature already installed." -ForegroundColor DarkCyan
@@ -28,8 +28,6 @@ if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).St
     Write-Host "Installing VM features." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
     $new_install = $true
-
-
 } 
 else {
     Write-Host "VM features already installed." -ForegroundColor DarkCyan
@@ -64,8 +62,10 @@ else {
     Write-Host "PowerShell 2.0 feature already installed." -ForegroundColor DarkCyan
 }
 
-Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta
-$confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now" 
-if ($confirmation -ieq 'reboot now') {
-    Restart-Computer -Force
+if ($new_install -eq $true) {
+    Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta
+    $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now" 
+    if ($confirmation -ieq 'reboot now') {
+        Restart-Computer -Force
+    }
 }
