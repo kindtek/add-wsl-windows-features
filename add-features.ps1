@@ -44,7 +44,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
 
 } 
 else {
-    Write-Host "Installing Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
+    Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
