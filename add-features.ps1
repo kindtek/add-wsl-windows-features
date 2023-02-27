@@ -7,6 +7,7 @@ if ($install -ieq 'quit' -Or $install -ieq 'q') {
     Write-Host "skipping $software_name install and exiting..."
     exit
 }
+else { Write-Host "`r`n"}
 
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
