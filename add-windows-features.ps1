@@ -12,7 +12,7 @@ else { Write-Host "`r`n"}
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
     Write-Host "`r`nInstalling Hyper-V ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
     $new_install = $true
 } 
 else {
@@ -21,7 +21,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
     Write-Host "Installing VirtualMachinePlatform ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
     $new_install = $true
 } 
 else {
@@ -30,7 +30,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
     Write-Host "Installing Containers ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
     $new_install = $true
 } 
 else {
@@ -39,7 +39,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "Installing Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
     $new_install = $true
 
 } 
@@ -49,7 +49,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
     Write-Host "Installing PowerShell 2.0 ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart
     $new_install = $true
 
 }
