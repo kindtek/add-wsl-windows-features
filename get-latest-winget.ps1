@@ -22,7 +22,7 @@ $name = $file.Split(".")[0]
 $zip = "$name-$tag.zip"
 $dir = "$name-$tag"
 
-Write-Host "Downloading latest release"
+Write-Host "Downloading latest release at $download"
 Invoke-WebRequest $download -Out $zip
 
 Write-Host "Unpacking ..."
