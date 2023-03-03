@@ -33,7 +33,7 @@ Expand-Archive $file -Force
 Write-Host "`r`n"
 
 
-Invoke-Item "$tag/$dir/build.bat"
+Invoke-Expression "cmd /c $tag/$dir/build.bat"
 # Install-PackageProvider ChocolateyGet -Force -AllowClobber
 
 Remove-Item $tag -Recurse -Force -ErrorAction SilentlyContinue 
