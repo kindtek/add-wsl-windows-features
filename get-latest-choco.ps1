@@ -20,21 +20,18 @@ foreach ( $this_tag in (Invoke-WebRequest $releases | ConvertFrom-Json)) {
 
 $download = "https://github.com/$repo/archive/refs/tags/$file"
 
-$name = $file.Split(".")[0]
-$zip = "$name-$tag.zip"
-$dir = "$name-$tag"
-
 Write-Host "Downloading latest release at $download"
-Invoke-WebRequest $download -Out $zip
+Invoke-WebRequest $download -Out $file
 
 Write-Host "Unpacking ..."
-Expand-Archive $zip -Force
+Expand-Archive $file -Force
 Write-Host "`r`n"
 
 Invoke-Item build.bat
 Install-PackageProvider choco -Force
 
-Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue 
+Remove-Item $tag  -Recurse -Force -WhatIf 
+Remove-Item $file -Recurse -Force -WhatIf
 
 # Moving from temp dir to target dir
 # $pwd_path = Split-Path -Path $PSCommandPath
