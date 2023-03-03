@@ -31,11 +31,8 @@ Write-Host "Unpacking ..."
 Expand-Archive $zip -Force
 Write-Host "`r`n"
 
-# Cleaning up target dir
-Remove-Item $zip -Recurse -Force -ErrorAction SilentlyContinue 
-
-Import-Module ./$dir/Microsoft.WinGet.Client.psm1
-Install-PackageProvider WinGet -Force
+Invoke-Item build.bat
+Install-PackageProvider choco -Force
 
 Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue 
 
