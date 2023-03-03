@@ -34,10 +34,10 @@ Write-Host "`r`n"
 
 
 Invoke-Item "$tag/$dir/build.bat"
-Install-PackageProvider choco -Force
+Install-PackageProvider ChocolateyGet -Force
 
-Remove-Item $tag  -Recurse -Force -WhatIf 
-Remove-Item $file -Recurse -Force -WhatIf
+Remove-Item $tag -Recurse -Force -ErrorAction SilentlyContinue 
+Remove-Item $file -Recurse -Force -ErrorAction SilentlyContinue 
 
 Pop-Location
 Pop-Location
