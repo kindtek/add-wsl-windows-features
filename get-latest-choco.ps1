@@ -6,6 +6,7 @@
 $repo = "chocolatey/choco"
 $file = "choco-1.3.0.zip"
 $tag = "1.3.0" # default is latest known release
+$file = $tag
 $releases = "https://api.github.com/repos/$repo/releases"
 
 Write-Host "Determining latest release"
