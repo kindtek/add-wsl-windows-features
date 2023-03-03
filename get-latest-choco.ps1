@@ -11,7 +11,7 @@ $releases = "https://api.github.com/repos/$repo/releases"
 Write-Host "Determining latest release"
 # don't use preview releases
 foreach ( $this_tag in (Invoke-WebRequest $releases | ConvertFrom-Json)) {
-    if ($this_tag["tag_name"] -NotLike "alpha" ) {
+    if ($this_tag["tag_name"] -NotLike "preview" ) {
         $tag = $this_tag["url"]
         break
     }
