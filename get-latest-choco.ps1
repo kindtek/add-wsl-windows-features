@@ -3,10 +3,12 @@
 
 # Download latest choclatey release from github
 # defaults (most up to date release)
-$repo = "chocolatey/choco"
-$file = "choco-1.3.0.zip"
+$choco = 'choco'
+$repo = "chocolatey/$choco"
 $tag = "1.3.0" # default is latest known release
 $file = "$tag.zip"
+$dir = "$choco-$tag"
+
 $releases = "https://api.github.com/repos/$repo/releases"
 
 Write-Host "Determining latest release"
@@ -22,7 +24,6 @@ $download = "https://github.com/$repo/archive/refs/tags/$file"
 
 Push-Location ..
 Push-Location ..
-Push-Location ..
 
 Write-Host "Downloading latest release at $download"
 Invoke-WebRequest $download -Out $file
@@ -32,13 +33,12 @@ Expand-Archive $file -Force
 Write-Host "`r`n"
 
 
-Invoke-Item build.bat
+Invoke-Item "$tag/$dir/build.bat"
 Install-PackageProvider choco -Force
 
 Remove-Item $tag  -Recurse -Force -WhatIf 
 Remove-Item $file -Recurse -Force -WhatIf
 
-Pop-Location
 Pop-Location
 Pop-Location
 # Moving from temp dir to target dir
