@@ -17,7 +17,7 @@ foreach ( $this_tag in (Invoke-WebRequest $releases | ConvertFrom-Json)) {
     }
 }
 
-$download = "https://github.com/$repo/archives/refs/tags/$file"
+$download = "https://github.com/$repo/archives/refs/tags/$tag"
 
 $name = $file.Split(".")[0]
 $zip = "$name-$tag.zip"
