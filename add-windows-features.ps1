@@ -70,7 +70,7 @@ else {
 
 if ($new_install -eq $true) {
     Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta
-    $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now`r`n ..or hit ENTER to skip" 
+    $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now`r`n ..or hit ENTER to skip`r`n" 
     if ($confirmation -ieq 'reboot now') {
         Restart-Computer -Force
     }
