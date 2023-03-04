@@ -40,9 +40,6 @@ else {
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "Installing Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
     $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart >$null 2>&1
-    Write-Host "... and Ubuntu"
-    $cmd_command = "--install -d Ubuntu"
-    Start-Process -FilePath wsl.exe -NoNewWindow -ArgumentList $cmd_command
     $new_install = $true
 
 } 
