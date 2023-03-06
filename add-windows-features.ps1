@@ -47,7 +47,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart >$null 2>&1
     $new_install = $true
     try {
-        Write-Host "`tInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
+        Write-Host "`r`n`tInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
         wsl.exe --install --distribution Ubuntu --inbox --no-launch 
     }
@@ -56,7 +56,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
 } 
 else {
     Write-Host "`tWindows Subsystem for Linux already installed." -ForegroundColor DarkCyan
-    Write-Host "`r`n`r`n`tRather than taking the risk of overwriting your files, please manually install Ubuntu if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution Ubuntu --no-launch`r`n`t`twsl --set-version Ubuntu 1`r`n" -ForegroundColor Yellow
+    Write-Host "`r`n`r`n`tPlease manually install Ubuntu if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution Ubuntu --no-launch`r`n`t`twsl --set-version Ubuntu 1`r`n" -ForegroundColor Yellow
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
