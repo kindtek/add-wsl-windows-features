@@ -55,8 +55,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
 
 } 
 else {
-    Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
-    Write-Host "Rather than taking the risk of overwriting your files, please manually install Ubuntu if you don't have a Linux OS installed yet.`r`n`r`nCopy/pasta this:`r`n`t`twsl --install --distribution Ubuntu --no-launch`r`n`t`twsl --set-version Ubuntu 1`r`n" -ForegroundColor Yellow
+    Write-Host "`tWindows Subsystem for Linux already installed." -ForegroundColor DarkCyan
+    Write-Host "`r`n`r`n`tRather than taking the risk of overwriting your files, please manually install Ubuntu if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution Ubuntu --no-launch`r`n`t`twsl --set-version Ubuntu 1`r`n" -ForegroundColor Yellow
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
