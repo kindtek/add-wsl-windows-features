@@ -15,39 +15,39 @@ else { Write-Host "`r`n" }
 
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
-    Write-Host "`r`nInstalling Hyper-V ..." -ForegroundColor DarkCyan
+    Write-Host "`r`n`tInstalling Hyper-V ..." -ForegroundColor DarkCyan
     $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart >$null 2>&1
     $new_install = $true
 } 
 else {
-    Write-Host "Hyper-V already installed." -ForegroundColor DarkCyan
+    Write-Host "`tHyper-V already installed." -ForegroundColor DarkCyan
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
-    Write-Host "Installing VirtualMachinePlatform ..." -ForegroundColor DarkCyan
+    Write-Host "`tInstalling VirtualMachinePlatform ..." -ForegroundColor DarkCyan
     $output = Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart >$null 2>&1
     $new_install = $true
 } 
 else {
-    Write-Host "VirtualMachinePlatform features already installed." -ForegroundColor DarkCyan
+    Write-Host "`tVirtualMachinePlatform features already installed." -ForegroundColor DarkCyan
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
-    Write-Host "Installing Containers ..." -ForegroundColor DarkCyan
+    Write-Host "`tInstalling Containers ..." -ForegroundColor DarkCyan
     $output = Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart >$null 2>&1
     $new_install = $true
 } 
 else {
-    Write-Host "Containers already installed." -ForegroundColor DarkCyan
+    Write-Host "`tContainers already installed." -ForegroundColor DarkCyan
 }
 
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
-    Write-Host "Installing Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
+    Write-Host "`tInstalling Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
     $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart >$null 2>&1
     $new_install = $true
     try {
-        Write-Host "Installing Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
+        Write-Host "`tInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
         wsl.exe --install --distribution Ubuntu --inbox --no-launch 
     }
@@ -60,12 +60,12 @@ else {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
-    Write-Host "Installing PowerShell 2.0 ..." -ForegroundColor DarkCyan
+    Write-Host "`tInstalling PowerShell 2.0 ..." -ForegroundColor DarkCyan
     $output = Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart >$null 2>&1
     $new_install = $true
 }
 else {
-    Write-Host "PowerShell 2.0 already installed." -ForegroundColor DarkCyan
+    Write-Host "`tPowerShell 2.0 already installed." -ForegroundColor DarkCyan
 }
 
 if ($new_install -eq $true) {
