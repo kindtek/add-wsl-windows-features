@@ -16,7 +16,7 @@ else { Write-Host "`r`n" }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
     Write-Host "`r`n`tInstalling Hyper-V ..." -ForegroundColor DarkCyan
-    $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart >$null 2>&1
+    { $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart } *>$null
     $new_install = $true
 } 
 else {
@@ -25,7 +25,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling VirtualMachinePlatform ..." -ForegroundColor DarkCyan
-    $output = Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart >$null 2>&1
+    { $output = Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart } *>$null
     $new_install = $true
 } 
 else {
@@ -34,7 +34,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling Containers ..." -ForegroundColor DarkCyan
-    $output = Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart >$null 2>&1
+    { $output = Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart } *>$null
     $new_install = $true
 } 
 else {
@@ -44,7 +44,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
-    $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart >$null 2>&1
+    { $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart } *>$null
     $new_install = $true
     try {
         Write-Host "`r`n`tInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
@@ -61,7 +61,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling PowerShell 2.0 ..." -ForegroundColor DarkCyan
-    $output = Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart >$null 2>&1
+    { $output = Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart } *>$null
     $new_install = $true
 }
 else {
