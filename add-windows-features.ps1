@@ -16,7 +16,7 @@ else { Write-Host "`r`n" }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
     Write-Host "`r`n`tInstalling Hyper-V ..." -ForegroundColor DarkCyan
-    { $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart } *>$null
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart 
     $new_install = $true
 } 
 else {
@@ -25,7 +25,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling VirtualMachinePlatform ..." -ForegroundColor DarkCyan
-    { $output = Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart } *>$null
+    $output = Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
     $new_install = $true
 } 
 else {
@@ -50,6 +50,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         Write-Host "`r`n`tInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
         wsl.exe --install --distribution Ubuntu --inbox --no-launch 
+        Set-VMProcessor -VMName Ubuntu -ExposeVirtualizationExtensions $true
     }
     catch {}
 
