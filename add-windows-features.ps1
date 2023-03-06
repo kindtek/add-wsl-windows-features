@@ -6,7 +6,7 @@ $new_install = $false
 $wsl_default_version = "1"
 $installing_wsl_features = $false
 
-$install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
+# $install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
 if ($install -ieq 'quit' -Or $install -ieq 'q') { 
     Write-Host "skipping $software_name install and exiting..."
     exit
