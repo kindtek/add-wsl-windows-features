@@ -14,13 +14,22 @@ if ($install -ieq 'quit' -Or $install -ieq 'q') {
 else { Write-Host "`r`n" }
 
 
-if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
+if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V -All -Online).State -ieq 'disabled') {
     Write-Host "`r`n`tInstalling Hyper-V ..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart 
     $new_install = $true
 } 
 else {
     Write-Host "`tHyper-V already installed." -ForegroundColor DarkCyan
+}
+
+if ($(Get-WindowsOptionalFeature -FeatureName HyperVisorPlatform -Online).State -ieq 'disabled') {
+    Write-Host "`r`n`tInstalling Hyper-V Platform..." -ForegroundColor DarkCyan
+    Enable-WindowsOptionalFeature -Online -FeatureName HyperVisorPlatform -NoRestart 
+    $new_install = $true
+} 
+else {
+    Write-Host "`tHypervisor Platform already installed." -ForegroundColor DarkCyan
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
