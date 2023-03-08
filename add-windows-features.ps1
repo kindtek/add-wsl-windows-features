@@ -27,7 +27,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName HyperVisorPlatform -Online).State 
     Write-Host "`r`n`tInstalling Hyper-V Platform..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName HyperVisorPlatform -NoRestart 
     $new_install = $true
-    # for virtual machines, stop the VM and enable nested virtualization on the host:
+    # for virtual windows machines, stop the VM and enable nested virtualization on the host:
     # Set-VMProcessor -VMName <VM Name> -ExposeVirtualizationExtensions $true
 } 
 else {
