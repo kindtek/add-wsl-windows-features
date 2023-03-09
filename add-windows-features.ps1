@@ -61,6 +61,14 @@ else {
     Write-Host "`tContainers already installed." -ForegroundColor DarkCyan
 }
 
+if ($(Get-WindowsOptionalFeature -FeatureName GuardedHost -Online).State -ieq 'disabled') {
+    Write-Host "`tInstalling Containers ..." -ForegroundColor DarkCyan
+    Enable-WindowsOptionalFeature -Online -FeatureName GuardedHost -All -NoRestart
+    $new_install = $true
+} 
+else {
+    Write-Host "`tContainers already installed." -ForegroundColor DarkCyan
+}
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
