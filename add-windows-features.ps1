@@ -1,5 +1,5 @@
 Write-Host "`r`nThe following Windows features will now be installed:" -ForegroundColor Magenta
-Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Powershell 2.0`r`n`t- Containers`r`n`t- .NET Framework 3.5`r`n`t- Windows Linux Subsystem`r`n`t" -ForegroundColor Magenta
+Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Powershell 2.0`r`n`t- Containers`r`n`t- Windows Linux Subsystem`r`n`t" -ForegroundColor Magenta
 
 
 $new_install = $false
@@ -72,15 +72,15 @@ else {
 #     Write-Host "Guarded Host already installed or not required" -ForegroundColor DarkCyan
 # }
 
-if (($(Get-WindowsOptionalFeature -FeatureName NetFx3 -Online).State -ieq 'disabled') -Or ($(Get-WindowsOptionalFeature -FeatureName NetFx3 -Online).State -ieq 'DisabledWithPayloadRemoved')) {
-    Write-Host "Installing .NET Framework 3.5 ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All -NoRestart
+# if (($(Get-WindowsOptionalFeature -FeatureName NetFx3 -Online).State -ieq 'disabled') -Or ($(Get-WindowsOptionalFeature -FeatureName NetFx3 -Online).State -ieq 'DisabledWithPayloadRemoved')) {
+#     Write-Host "Installing .NET Framework 3.5 ..." -ForegroundColor DarkCyan
+#     Enable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All -NoRestart
 
-    $new_install = $true
-} 
-else {
-    Write-Host ".NET Framework 3.5 already installed." -ForegroundColor DarkCyan
-}
+#     $new_install = $true
+# } 
+# else {
+#     Write-Host ".NET Framework 3.5 already installed." -ForegroundColor DarkCyan
+# }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "Installing Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
