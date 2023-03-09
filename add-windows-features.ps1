@@ -53,12 +53,12 @@ else {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
-    Write-Host "`tInstalling Containers ..." -ForegroundColor DarkCyan
+    Write-Host "`tInstalling Guarded Host ..." -ForegroundColor DarkCyan
     Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
     $new_install = $true
 } 
 else {
-    Write-Host "`tContainers already installed." -ForegroundColor DarkCyan
+    Write-Host "`tGuarded Host already installed or not required" -ForegroundColor DarkCyan
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName GuardedHost -Online).State -ieq 'disabled') {
