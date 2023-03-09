@@ -54,7 +54,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling Containers ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName Containers -All 
+    Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
     $new_install = $true
 } 
 else {
@@ -64,7 +64,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "`tInstalling Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All 
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
     $new_install = $true
     try {
         Write-Host "`r`n`tInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
@@ -81,7 +81,7 @@ else {
 }
 
 if ($new_install -eq $true) {
-    Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta
+    Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta -BackgroundColor Yellow
     # $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now`r`n ..or hit ENTER to skip`r`n" 
     # if ($confirmation -ieq 'reboot now') {
     #     Restart-Computer -Force
