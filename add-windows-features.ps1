@@ -4,7 +4,6 @@ Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Powershell 2.0`r`
 
 $new_install = $false
 $wsl_default_version = "1"
-$installing_wsl_features = $false
 
 # $install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
 if ($install -ieq 'quit' -Or $install -ieq 'q') { 
