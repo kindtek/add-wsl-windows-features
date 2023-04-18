@@ -7,7 +7,7 @@ $file = "Microsoft.WinGet.Client-PSModule.zip"
 $tag = "v1.4.10173" # default is latest known release
 $releases = "https://api.github.com/repos/$repo/releases"
 
-Write-Host "Determining latest release"
+Write-Host "Determining latest Winget release"
 # don't use preview releases
 foreach ( $this_tag in (Invoke-WebRequest $releases | ConvertFrom-Json)) {
     if ($this_tag["tag_name"] -NotLike "*preview*" ) {
@@ -22,7 +22,7 @@ $name = $file.Split(".")[0]
 $zip = "$name-$tag.zip"
 $dir = "$name-$tag"
 
-Write-Host "Downloading latest release at $download"
+Write-Host "Downloading latest Winget release at $download"
 Invoke-WebRequest $download -Out $zip
 
 Write-Host "Unpacking ..."
