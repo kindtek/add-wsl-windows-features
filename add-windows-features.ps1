@@ -3,7 +3,7 @@ Write-Host "`t- Hyper-V`r`n`t- Virtual Machine Platform`r`n`t- Powershell 2.0`r`
 
 
 $new_install = $false
-$wsl_default_version = "1"
+$wsl_default_version = "2"
 
 # $install = Read-Host "`r`nPress ENTER to continue or enter `"q`" to quit"
 if ($install -ieq 'quit' -Or $install -ieq 'q') { 
@@ -86,7 +86,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
     $new_install = $true
     try {
-        Write-Host "`r`nInstalling Ubuntu as your WSL 1 source. Want version 2? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 2`r`n`r`n" -ForegroundColor Yellow
+        Write-Host "`r`nInstalling Ubuntu as your WSL 2 source. Want version 1? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 1`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
         wsl.exe --install --distribution Ubuntu --inbox --no-launch 
         Set-VMProcessor -VMName Ubuntu -ExposeVirtualizationExtensions $true
@@ -95,7 +95,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
 
 } 
 else {
-    Write-Host "`tWindows Subsystem for Linux already installed." -ForegroundColor DarkCyan
+    Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
     # Write-Host "`r`n`r`n`tPlease manually install Ubuntu if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution Ubuntu --no-launch`r`n`t`twsl --set-version Ubuntu 1`r`n" -ForegroundColor Yellow
 }
 
