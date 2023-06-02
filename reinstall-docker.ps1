@@ -1,3 +1,5 @@
+docker builder prune -af
+docker system prune -af --volumes
 winget uninstall --id=Docker.DockerDesktop
 Remove-Item "$env:APPDATA\Docker"
 Remove-Item "$env:LOCALAPPDATA\Docker"
