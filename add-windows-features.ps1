@@ -83,17 +83,17 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
     $new_install = $true
     try {
-        Write-Host "`r`nInstalling Ubuntu as your WSL 2 source. Want version 1? Copy/pasta this:`r`n`t`twsl --set-version Ubuntu 1`r`n`r`n" -ForegroundColor Yellow
+        Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
-        wsl.exe --install --distribution Ubuntu --inbox --no-launch 
-        Set-VMProcessor -VMName Ubuntu -ExposeVirtualizationExtensions $true
+        wsl.exe --install --distribution kali-linux --inbox --no-launch 
+        Set-VMProcessor -VMName kali-linux -ExposeVirtualizationExtensions $true
     }
     catch {}
 
 } 
 else {
     Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
-    # Write-Host "`r`n`r`n`tPlease manually install Ubuntu if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution Ubuntu --no-launch`r`n`t`twsl --set-version Ubuntu 1`r`n" -ForegroundColor Yellow
+    # Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
 }
 
 if ($new_install -eq $true) {
