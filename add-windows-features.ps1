@@ -88,8 +88,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --install --distribution kali-linux --no-launch
         wsl.exe --update
         # save this for later - PC needs to be restarted for hyperv to process set-vm
-        $profilePath = Join-Path $HOME 'Documents\PowerShell\Microsoft.PowerShell_profile.ps1'
-        $vmpPath = Join-Path $HOME 'Documents\PowerShell\kindtek.Set-VMP.ps1'
+        $profilePath = Join-Path $env:USERPROFILE 'Documents\PowerShell\Microsoft.PowerShell_profile.ps1'
+        $vmpPath = Join-Path $env:USERPROFILE 'Documents\PowerShell\kindtek.Set-VMP.ps1'
         New-Item -Path $profilePath -ItemType File -Force
         New-Item -Path $vmpPath -ItemType File -Force
         Add-Content $profilePath './kindtek.Set-VMP.ps1;Clear-Content ''kindtek.Set-VMP.ps1'''
