@@ -85,8 +85,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     try {
         Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
-        wsl.exe --install --distribution kali-linux --inbox --no-launch 
-        wsl.exe --update --pre-release
+        wsl.exe --install --distribution kali-linux --no-launch
+        wsl.exe --update
         Set-VMProcessor -VMName kali-linux -ExposeVirtualizationExtensions $true
     }
     catch {}
