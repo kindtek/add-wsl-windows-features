@@ -88,11 +88,12 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --install --distribution kali-linux --no-launch
         wsl.exe --update
         # save this for later - PC needs to be restarted for hyperv to process set-vm
-        New-Item -Name $Home/Documents/PowerShell/Microsoft.PowerShell_profile.ps1 -ItemType File
-        New-Item -Name $Home/Documents/PowerShell/kindtek.Set-VMP.ps1 -ItemType File
-        Add-Content $Home/Documents/PowerShell/Microsoft.PowerShell_profile.ps1 "./kindtek.Set-VMP.ps1;Clear-Content 'kindtek.Set-VMP.ps1'"
-        Add-Content $Home/Documents/PowerShell/kindtek.Set-VMP.ps1 "`nWrite-Host 'Preparing to set up HyperV VM Processor as kali-linux ...';Start-Sleep 10;Set-VMProcessor -VMName kali-linux -ExposeVirtualizationExtensions $true -ErrorAction SilentlyContinue" 
-        
+        $profilePath = Join-Path $HOME 'Documents\PowerShell\Microsoft.PowerShell_profile.ps1'
+        $vmpPath = Join-Path $HOME 'Documents\PowerShell\kindtek.Set-VMP.ps1'
+        New-Item -Path $profilePath -ItemType File -Force
+        New-Item -Path $vmpPath -ItemType File -Force
+        Add-Content $profilePath './kindtek.Set-VMP.ps1;Clear-Content ''kindtek.Set-VMP.ps1'''
+        Add-Content $vmpPath "`nWrite-Host 'Preparing to set up HyperV VM Processor as kali-linux ...';Start-Sleep 10;Set-VMProcessor -VMName kali-linux -ExposeVirtualizationExtensions `$true -ErrorAction SilentlyContinue"        
     }
     catch {}
 
