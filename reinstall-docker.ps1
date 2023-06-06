@@ -15,6 +15,7 @@ Remove-Item "$env:LOCALAPPDATA\Docker*" -Recurse -Force -Confirm:$false
 Remove-Item "$env:USERPROFILE\.docker" -Recurse -Force -Confirm:$false
 Remove-Item "$env:PROGRAMDATA\Docker*" -Recurse -Force -Confirm:$false
 winget uninstall --id=Docker.DockerDesktop
+Remove-Item "$env:USERPROFILE/repos/kindtek/dvlw/.docker-installed" -Force -ErrorAction SilentlyContinue
 Write-Host "Hit ENTER to proceed with Docker Desktop installation"
 # winget install --id=Docker.DockerDesktop --location="c:\docker" --locale en-US --accept-package-agreements --accept-source-agreements
 winget install --id=Docker.DockerDesktop --locale en-US --accept-package-agreements --accept-source-agreements
@@ -23,5 +24,5 @@ Invoke-WebRequest -Uri https://desktop.docker.com/win/stable/Docker%20Desktop%20
 .\DockerDesktopInstaller.exe
 # & 'C:\Program Files\Docker\Docker\Docker Desktop.exe'
 # "Docker Desktop Installer.exe" install --accept-license --backend=wsl-2 --installation-dir=c:\docker 
-Remove-Item "$env:USERPROFILE/repos/kindtek/dvlw/.docker-installed" -Force -ErrorAction SilentlyContinue
+Write-Host "$software_name installed" | Out-File -FilePath "$env:USERPROFILE/repos/kindtek/dvlw/.docker-installed"
 Remove-Item "DockerDesktopInstaller.exe" -Force -ErrorAction SilentlyContinue
