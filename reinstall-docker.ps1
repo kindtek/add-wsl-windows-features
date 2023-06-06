@@ -13,6 +13,7 @@ wsl --unregister docker-desktop
 Remove-Item "$env:APPDATA\Docker*" -Recurse -Force -Confirm:$false 
 Remove-Item "$env:LOCALAPPDATA\Docker*" -Recurse -Force -Confirm:$false 
 Remove-Item "$env:USERPROFILE\.docker" -Recurse -Force -Confirm:$false
+Remove-Item "$env:PROGRAMDATA\Docker*" -Recurse -Force -Confirm:$false
 winget uninstall --id=Docker.DockerDesktop
 Write-Host "Hit ENTER to proceed with Docker Desktop installation"
 # winget install --id=Docker.DockerDesktop --location="c:\docker" --locale en-US --accept-package-agreements --accept-source-agreements
