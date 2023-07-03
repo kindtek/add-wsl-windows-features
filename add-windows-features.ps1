@@ -84,7 +84,7 @@ $profilePath = Join-Path $env:USERPROFILE 'Documents\PowerShell\Microsoft.PowerS
 $vmpPath = Join-Path $env:USERPROFILE 'Documents\PowerShell\kindtek.Set-VMP.ps1'
 New-Item -Path $profilePath -ItemType File -Force
 New-Item -Path $vmpPath -ItemType File -Force
-Add-Content $profilePath './kindtek.Set-VMP.ps1;Clear-Content ''kindtek.Set-VMP.ps1'''
+Add-Content $profilePath "./kindtek.Set-VMP.ps1;Clear-Content 'kindtek.Set-VMP.ps1';./$env:USERPROFILE/dvlp"
 Add-Content $vmpPath "`nWrite-Host 'Preparing to set up HyperV VM Processor as kali-linux ...';Start-Sleep 10;Set-VMProcessor -VMName kali-linux -ExposeVirtualizationExtensions `$true -ErrorAction SilentlyContinue"        
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
