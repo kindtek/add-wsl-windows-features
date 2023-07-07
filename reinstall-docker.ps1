@@ -9,7 +9,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 Write-Host "completely removing Docker installation"
 docker builder prune -af
 docker system prune -af --volumes
-wsl --unregister docker-desktop
+wsl.exe --unregister docker-desktop
 Remove-Item "$env:APPDATA\Docker*" -Recurse -Force -Confirm:$false 
 Remove-Item "$env:LOCALAPPDATA\Docker*" -Recurse -Force -Confirm:$false 
 Remove-Item "$env:USERPROFILE\.docker" -Recurse -Force -Confirm:$false
