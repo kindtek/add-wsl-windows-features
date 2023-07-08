@@ -12,7 +12,7 @@ if ($install -ieq 'quit' -Or $install -ieq 'q') {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
     Write-Host "`r`nInstalling Hyper-V ..." -ForegroundColor DarkCyan
-    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit" -Wait
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit}" -Wait
 
     
     $new_install = $true
@@ -23,7 +23,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName HyperVisorPlatform -Online).State -ieq 'disabled') {
     Write-Host "`r`nInstalling Hyper-V Platform..." -ForegroundColor DarkCyan
-    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName HyperVisorPlatform -NoRestart;exit" -Wait
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName HyperVisorPlatform -NoRestart;exit}" -Wait
     $new_install = $true
     # for virtual windows machines, stop the VM and enable nested virtualization on the host:
     # Set-VMProcessor -VMName <VM Name> -ExposeVirtualizationExtensions $true
@@ -34,7 +34,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'disabled') {
     Write-Host "Installing VirtualMachinePlatform ..." -ForegroundColor DarkCyan
-    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart;exit" -Wait
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart;exit}" -Wait
     $new_install = $true
 } 
 else {
@@ -43,7 +43,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'disabled') {
     Write-Host "Installing PowerShell 2.0 ..." -ForegroundColor DarkCyan
-    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart;exit" -Wait
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -All -NoRestart;exit}" -Wait
     $new_install = $true
 }
 else {
@@ -53,7 +53,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'disabled') {
     Write-Host "Installing Containers ..." -ForegroundColor DarkCyan
-    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart;exit" -Wait
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart;exit}" -Wait
     $new_install = $true
 }
 else {
