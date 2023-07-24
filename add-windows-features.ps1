@@ -88,13 +88,15 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version
         wsl.exe --install --distribution kali-linux --no-launch
-        wsl.exe --update
         # save this for later - PC needs to be restarted for hyperv to process set-vm
     }
     catch {}
 
 } 
 else {
+    try {
+        wsl.exe --update
+    } catch {}
     Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
     # Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
 }
