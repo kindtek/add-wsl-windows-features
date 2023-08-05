@@ -90,7 +90,11 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --install --distribution kali-linux --no-launch
         # save this for later - PC needs to be restarted for hyperv to process set-vm
     }
-    catch {}
+    catch {
+        Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
+        Add-AppxPackage .\kali-linux.AppxBundle
+        Remove-Item -Path .\kali-linux.AppxBundle
+    }
 
 } 
 else {
