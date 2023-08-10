@@ -6,16 +6,17 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-Write-Host "completely removing Docker installation"
-docker builder prune -af
-docker system prune -af --volumes
-wsl.exe --unregister docker-desktop
-Remove-Item "$env:APPDATA\Docker*" -Recurse -Force -Confirm:$false 
-Remove-Item "$env:LOCALAPPDATA\Docker*" -Recurse -Force -Confirm:$false 
-Remove-Item "$env:USERPROFILE\.docker" -Recurse -Force -Confirm:$false
-Remove-Item "$env:PROGRAMDATA\Docker*" -Recurse -Force -Confirm:$false
+Read-Host "Hit ENTER to proceed with Docker Desktop re-install"
+docker builder prune -af | Out-Null
+docker system prune -af --volumes | Out-Null
+wsl.exe --unregister docker-desktop | Out-Null
+Remove-Item "$env:APPDATA\Docker*" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Docker*" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
+Remove-Item "$env:USERPROFILE\.docker" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
+Remove-Item "$env:PROGRAMDATA\Docker*" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
 winget uninstall --id=Docker.DockerDesktop
-Remove-Item "$env:USERPROFILE/repos/kindtek/dvlw/.docker-installed" -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:USERPROFILE/repos/kindtek/.docker-installed" -Force -ErrorAction SilentlyContinue
+# sometimes hangs and needs an enter key for some reason
 Write-Host "Hit ENTER to proceed with Docker Desktop installation"
 # winget install --id=Docker.DockerDesktop --location="c:\docker" --locale en-US --accept-package-agreements --accept-source-agreements
 winget install --id=Docker.DockerDesktop --locale en-US --accept-package-agreements --accept-source-agreements
@@ -24,5 +25,6 @@ Invoke-WebRequest -Uri https://desktop.docker.com/win/stable/Docker%20Desktop%20
 .\DockerDesktopInstaller.exe
 # & 'C:\Program Files\Docker\Docker\Docker Desktop.exe'
 # "Docker Desktop Installer.exe" install --accept-license --backend=wsl-2 --installation-dir=c:\docker 
-Write-Host "$software_name installed" | Out-File -FilePath "$env:USERPROFILE/repos/kindtek/dvlw/.docker-installed"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE/repos/kindtek" | Out-Null
+Write-Host "Docker installed" | Out-File -FilePath "$env:USERPROFILE/repos/kindtek/.docker-installed"
 Remove-Item "DockerDesktopInstaller.exe" -Force -ErrorAction SilentlyContinue
