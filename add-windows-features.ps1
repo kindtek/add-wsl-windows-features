@@ -90,8 +90,8 @@ try {
     wsl.exe --update
 } catch {}
 try {
-    $new_install = $true
     if (!($?)){
+        $new_install = $true
         Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
         wsl.exe --set-default-version $wsl_default_version | Out-Null
         wsl.exe --install --distribution kali-linux --no-launch
