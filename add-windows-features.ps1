@@ -86,21 +86,27 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     $new_install = $true
     
 } 
-try {
-    wsl.exe --update
-} catch {
-    try {
-        Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
-        wsl.exe --set-default-version $wsl_default_version
-        wsl.exe --install --distribution kali-linux --no-launch
-        # save this for later - PC needs to be restarted for hyperv to process set-vm
+
+    if (!(wsl.exe --update)){
+        try {
+            Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
+            wsl.exe --set-default-version $wsl_default_version
+            if (!(wsl.exe --install --distribution kali-linux --no-launch)){
+                Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
+                Add-AppxPackage .\kali-linux.AppxBundle
+                Remove-Item -Path .\kali-linux.AppxBundle
+            }
+            # save this for later - PC needs to be restarted for hyperv to process set-vm
+        }
+        catch {
+            Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
+            Add-AppxPackage .\kali-linux.AppxBundle
+            Remove-Item -Path .\kali-linux.AppxBundle
+        }
     }
-    catch {
-        Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
-        Add-AppxPackage .\kali-linux.AppxBundle
-        Remove-Item -Path .\kali-linux.AppxBundle
-    }
-}
+
+    
+
 Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
 # Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
 
