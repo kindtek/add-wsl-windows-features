@@ -90,23 +90,29 @@ try {
     wsl.exe --update
 } catch {}
 try {
+    $new_install = $true
     if (!($?)){
         Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
-        wsl.exe --set-default-version $wsl_default_version
+        wsl.exe --set-default-version $wsl_default_version | Out-Null
         wsl.exe --install --distribution kali-linux --no-launch
-        wsl.exe --update
+        wsl.exe --status
         if (!($?)){
-            Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
-            Add-AppxPackage .\kali-linux.AppxBundle
-            Remove-Item -Path .\kali-linux.AppxBundle
+            Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
+            Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
+            Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
+            Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+            Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
         }
     } else {
         Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
     }
 } catch {                
-    Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
-    Add-AppxPackage .\kali-linux.AppxBundle
-    Remove-Item -Path .\kali-linux.AppxBundle
+    Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
+    Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
+    Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
+    Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+    Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
+
 }
 # Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
 
