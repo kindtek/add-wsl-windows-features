@@ -97,13 +97,16 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     }
 
 } 
-else {
-    try {
-        wsl.exe --update
-    } catch {}
-    Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
-    # Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
+try {
+    wsl.exe --update
+} catch {
+    Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile .\kali-linux.AppxBundle -UseBasicParsing -TimeoutSec 1800
+    Add-AppxPackage .\kali-linux.AppxBundle
+    Remove-Item -Path .\kali-linux.AppxBundle
 }
+Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
+# Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
+
 
 if ($new_install -eq $true) {
     Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta -BackgroundColor Yellow
