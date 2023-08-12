@@ -10,6 +10,7 @@ Read-Host "Hit ENTER to proceed with Docker Desktop re-install"
 docker builder prune -af | Out-Null
 docker system prune -af --volumes | Out-Null
 wsl.exe --unregister docker-desktop | Out-Null
+wsl.exe --unregister docker-desktop-data | Out-Null
 Remove-Item "$env:APPDATA\Docker*" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
 Remove-Item "$env:LOCALAPPDATA\Docker*" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
 Remove-Item "$env:USERPROFILE\.docker" -Recurse -Force -Confirm:$false -ErrorAction SilentlyContinue
