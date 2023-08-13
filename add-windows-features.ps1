@@ -95,6 +95,14 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" 
             # Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
             Write-Output 'user' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
+            if ($?){
+                # wsl --install command successful .. wait for a distribution to be added to the list
+                do {
+                    # keep checking
+                    wsl.exe --list | Out-Null
+                    start-sleep 5
+                } while (!($?))
+            }
             wsl.exe --set-default-version $wsl_default_version | Out-Null
             # # wsl.exe --list | Out-Null
             # # wsl.exe --install --distribution kali-linux --no-user
