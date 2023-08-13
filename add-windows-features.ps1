@@ -136,8 +136,9 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
 
 if ($new_install -eq $true -and (!([string]::IsNullOrEmpty($args[0])))) {
     Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta -BackgroundColor Yellow
-    # $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now`r`n ..or hit ENTER to skip`r`n" 
-    # if ($confirmation -ieq 'reboot now') {
-    #     Restart-Computer -Force
-    # }
+    $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now`r`n ..or hit ENTER to skip`r`n" 
+    if ($confirmation -ieq 'reboot now') {
+        Restart-Computer -Force
+    }
+    exit
 }
