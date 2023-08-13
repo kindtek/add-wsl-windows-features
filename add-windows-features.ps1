@@ -97,7 +97,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             try {
                 Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
             } catch {
-                Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000 | Out-Null
+                Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000 
                 Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
             }
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
