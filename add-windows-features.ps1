@@ -89,22 +89,31 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         if (!($?)){
             $new_install = $true
             Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
-            wsl.exe --set-default-version $wsl_default_version | Out-Null
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
-            wsl.exe --install --distribution kali-linux
+            # wsl.exe --install
+            # wsl.exe --install --distribution kali-linux --no-user
+            if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
+                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
+                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+            } else {
+                throw
+            }
+            wsl.exe --set-default-version $wsl_default_version | Out-Null
+            wsl.exe --list | Out-Null
             # wsl.exe --status
             if (!($?)){
                 # try {
                 #     # Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
                 # } catch {}
 
-                if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
-                        Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
-                        Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                        Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                } else {
-                    throw
-                }    
+                # if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
+                #         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
+                #         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+                #         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+                # } else {
+                #     throw
+                # }    
             } else {
                 wsl.exe --update
                 if (!($?)){
