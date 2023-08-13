@@ -88,51 +88,54 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --list | Out-Null
         if (!($?)){
             $new_install = $true
-            Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
+            # Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
-            # wsl.exe --install
-            # wsl.exe --install --distribution kali-linux --no-user
-            if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
-                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
-                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
-            } else {
-                throw
-            }
+            Write-Output 'user' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             wsl.exe --set-default-version $wsl_default_version | Out-Null
             wsl.exe --list | Out-Null
-            # wsl.exe --status
-            if (!($?)){
-                # try {
-                #     # Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
-                # } catch {}
+            # # wsl.exe --install --distribution kali-linux --no-user
+            # # if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
+            # #     Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
+            # #     Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
+            # # } else {
+            # #     throw
+            # # }
 
-                # if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
-                #         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
-                #         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                #         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                # } else {
-                #     throw
-                # }    
-            } else {
-                wsl.exe --update
-                if (!($?)){
-                    throw
-                }
-            }
+            # # wsl.exe --status
+            # if (!($?)){
+            #     # try {
+            #     #     # Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
+            #     # } catch {}
+
+            #     # if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
+            #     #         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
+            #     #         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+            #     #         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+            #     # } else {
+            #     #     throw
+            #     # }    
+            # } else {
+            #     wsl.exe --update
+            #     if (!($?)){
+            #         throw
+            #     }
+            # }
         } else {
             Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
         }
-    } catch {              
-        try {
-            Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
-            Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
-            Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
-            # Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
-        }  catch {
-            Remove-AppxPackage -package 'kali-linux'
-
-            MicrosoftCorporationII.WindowsSubsystemForLinux
-        }
+    } catch {       
+        wsl.exe --install --distribution kali-linux      
+        # try {
+        #     Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -TimeoutSec 3000
+        #     Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
+        #     Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+        #     # Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
+        # }  catch {
+        #     Remove-AppxPackage -package 'kali-linux'
+        #     Add-AppxPackage "MicrosoftCorporationII.WindowsSubsystemForLinux"
+        #     Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+            
+        # }
 
     }
 }
