@@ -9,6 +9,7 @@ $releases = "https://api.github.com/repos/$repo/releases"
 
 Write-Host "Determining latest Winget release"
 # don't use preview releases
+# foreach ( $this_tag in (Invoke-RestMethod $releases | ConvertFrom-Json)) {
 foreach ( $this_tag in (Invoke-WebRequest $releases | ConvertFrom-Json)) {
     if ($this_tag["tag_name"] -NotLike "*preview*" ) {
         $tag = $this_tag["url"]
@@ -23,7 +24,7 @@ $zip = "$name-$tag.zip"
 $dir = "$name-$tag"
 
 Write-Host "Downloading latest Winget release at $download"
-Invoke-WebRequest $download -Out $zip
+Invoke-RestMethod $download -Out $zip
 
 Write-Host "Unpacking ..."
 Expand-Archive $zip -Force

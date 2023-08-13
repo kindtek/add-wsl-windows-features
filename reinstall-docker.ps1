@@ -22,7 +22,7 @@ Write-Host "Hit ENTER to proceed with Docker Desktop installation"
 # winget install --id=Docker.DockerDesktop --location="c:\docker" --locale en-US --accept-package-agreements --accept-source-agreements
 winget install --id=Docker.DockerDesktop --locale en-US --accept-package-agreements --accept-source-agreements
 winget upgrade --id=Docker.DockerDesktop --locale en-US --accept-package-agreements --accept-source-agreements
-Invoke-WebRequest -Uri https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe -OutFile DockerDesktopInstaller.exe
+Invoke-RestMethod -Uri https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe -OutFile DockerDesktopInstaller.exe
 .\DockerDesktopInstaller.exe
 # & 'C:\Program Files\Docker\Docker\Docker Desktop.exe'
 # "Docker Desktop Installer.exe" install --accept-license --backend=wsl-2 --installation-dir=c:\docker 
