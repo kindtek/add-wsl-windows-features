@@ -8,7 +8,8 @@ if ($remove -ieq 'quit' -Or $remove -ieq 'q') {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'enabled') {
-    Write-Host "`r`nRemoving Hyper-V ..." -ForegroundColor DarkCyan
+    write-host "`r`n"
+    Write-Host -nonewline "Removing Hyper-V ..." -ForegroundColor DarkCyan
     Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit}" -Wait
 } 
 else {
