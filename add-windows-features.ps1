@@ -150,9 +150,25 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
         }
     } catch {   
-        Invoke-WebRequest -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000
+        Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000
         Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi"    
-        wsl.exe --install --distribution kali-linux      
+        wsl.exe --install --distribution kali-linux    
+        $date_time = (Get-Date).ToUniversalTime()
+        $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
+        # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
+        start_dvlp_process_pop "
+        write-output 'enter `"exit`" to continue';
+        if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
+            # wsl --install command successful .. wait for a distribution to be added to the list
+            do {
+                # keep checking
+                start-sleep 5;
+                wsl.exe --distribution kali-linux --status | Out-Null;
+            } while (!(`$?));
+        }
+        exit;" 'wait'
+        
+        wsl.exe --set-default-version $wsl_default_version | Out-Null  
         # try {
         #     Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -TimeoutSec 3000
         #     Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
