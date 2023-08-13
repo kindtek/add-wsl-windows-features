@@ -80,7 +80,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'disabled') {
     Write-Host "Installing Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart;exit}" -Wait
     $new_install = $true
     
 } else {

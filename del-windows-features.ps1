@@ -9,7 +9,7 @@ if ($remove -ieq 'quit' -Or $remove -ieq 'q') {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'enabled') {
     Write-Host "`r`nRemoving Hyper-V ..." -ForegroundColor DarkCyan
-    Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart 
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit}" -Wait
 } 
 else {
     Write-Host "Hyper-V is already disabled." -ForegroundColor DarkCyan
@@ -17,7 +17,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName HyperVisorPlatform -Online).State -ieq 'enabled') {
     Write-Host "`r`nRemoving Hyper-V Platform..." -ForegroundColor DarkCyan
-    Disable-WindowsOptionalFeature -Online -FeatureName HyperVisorPlatform -NoRestart 
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName HyperVisorPlatform -NoRestart;exit}" -Wait
 } 
 else {
     Write-Host "Hypervisor Platform is already disabled." -ForegroundColor DarkCyan
@@ -25,7 +25,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -Online).State -ieq 'enabled') {
     Write-Host "Removing VirtualMachinePlatform ..." -ForegroundColor DarkCyan
-    Disable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart;exit}" -Wait
 } 
 else {
     Write-Host "VirtualMachinePlatform features are already disabled." -ForegroundColor DarkCyan
@@ -33,7 +33,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'enabled') {
     Write-Host "Removing PowerShell 2.0 ..." -ForegroundColor DarkCyan
-    Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart;exit}" -Wait
 }
 else {
     Write-Host "PowerShell 2.0 is already disabled." -ForegroundColor DarkCyan
@@ -42,7 +42,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Containers -Online).State -ieq 'enabled') {
     Write-Host "Removing Containers ..." -ForegroundColor DarkCyan
-    Disable-WindowsOptionalFeature -Online -FeatureName Containers -NoRestart
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName Containers -NoRestart;exit}" -Wait
 }
 else {
     Write-Host "Containers are already disabled." -ForegroundColor DarkCyan
@@ -69,7 +69,7 @@ else {
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux -Online).State -ieq 'enabled') {
     Write-Host "Removing Windows Subsystem for Linux ..." -ForegroundColor DarkCyan
-    Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart;exit}" -Wait
 } 
 else {
     Write-Host "Windows Subsystem for Linux is already disabled." -ForegroundColor DarkCyan
