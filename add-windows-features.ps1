@@ -105,7 +105,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
             # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
             start_dvlp_process_pop "
-            write-output 'enter `"exit`" to continue';
+            write-output 'enter `"exit`" or close window to continue';
             if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
                 # wsl --install command successful .. wait for a distribution to be added to the list
                 do {
