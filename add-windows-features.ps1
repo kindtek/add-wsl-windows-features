@@ -123,7 +123,6 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     
             } else {
                 wsl.exe --update
-                wsl.exe --status
                 if (!($?)){
                     throw
                 }
