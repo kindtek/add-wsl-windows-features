@@ -13,8 +13,6 @@ if ($install -ieq 'quit' -Or $install -ieq 'q') {
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
     Write-Host "`r`nInstalling Hyper-V ..." -ForegroundColor DarkCyan
     Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit}" -Wait
-
-    
     $new_install = $true
 } 
 else {
@@ -96,18 +94,19 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # wsl.exe --status
             if (!($?)){
                 try {
+                    Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
+                } catch {}
+                try {
                     if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
+                        
                         try {
-                            Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
-                            Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
                             Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
                             Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
                             Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                            Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
+                            # Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
                         } catch {
                             try {
                                 Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
-                                Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
                                 Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
                                 Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
                                 Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
@@ -115,12 +114,10 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
                         }
                     } else {
                         Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
-                        Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
                         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
                         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
                         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                        Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
-    
+                        # Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
                     }
                 } catch {}
     
@@ -136,11 +133,9 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         }
     } catch {                
         Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
-        Remove-AppxPackage -package MicrosoftCorporationII.WindowsSubsystemForLinux
         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
         Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
-    
     }
 }
 
