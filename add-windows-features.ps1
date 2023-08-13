@@ -90,9 +90,13 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             $new_install = $true
             # Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
+            # https://aka.ms/wsl2kernelmsix64
+            Invoke-WebRequest -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
+            powershell.exe -executionpolicy remotesigned -File "$env:USERPROFILE/wsl2kernelmsix64.msi"
+            Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
             Write-Output 'user' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             wsl.exe --set-default-version $wsl_default_version | Out-Null
-            wsl.exe --list | Out-Null
+            # # wsl.exe --list | Out-Null
             # # wsl.exe --install --distribution kali-linux --no-user
             # # if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
             # #     Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
@@ -123,7 +127,9 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         } else {
             Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
         }
-    } catch {       
+    } catch {   
+        Invoke-WebRequest -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000
+        powershell.exe -executionpolicy remotesigned -File "$env:USERPROFILE/wsl2kernelmsix64.msi"    
         wsl.exe --install --distribution kali-linux      
         # try {
         #     Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -TimeoutSec 3000
