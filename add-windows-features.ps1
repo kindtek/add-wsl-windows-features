@@ -129,7 +129,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         }
     } catch {   
         Invoke-WebRequest -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000
-        powershell.exe -executionpolicy remotesigned -File "$env:USERPROFILE/wsl2kernelmsix64.msi"    
+        Invoke-Expression -Command "$env:USERPROFILE/wsl2kernelmsix64.msi"    
         wsl.exe --install --distribution kali-linux      
         # try {
         #     Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -TimeoutSec 3000
