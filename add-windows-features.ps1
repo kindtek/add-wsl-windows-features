@@ -93,12 +93,13 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
             # https://aka.ms/wsl2kernelmsix64
             # Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
+            Write-Host 'confirm wsl installation prompts'
             Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
             try {
-                Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi"  
+                Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
             } catch {
                 Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000 | Out-Null
-                Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" 
+                Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
             }
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             $date_time = (Get-Date).ToUniversalTime()
