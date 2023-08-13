@@ -93,9 +93,9 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # wsl.exe --install
             # wsl.exe --install --distribution kali-linux --no-user
             if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
-                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
-                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
+                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" | Out-Null
+                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" 
+                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" 
             } else {
                 throw
             }
