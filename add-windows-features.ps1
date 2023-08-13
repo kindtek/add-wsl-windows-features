@@ -147,7 +147,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
 # Write-Host "`r`n`r`n`tPlease manually install Kali if you don't have a Linux OS installed yet.`r`n`r`n`tCopy/pasta this:`r`n`t`twsl --install --distribution kali-linux --no-launch`r`n`t`twsl --set-version kali-linux 1`r`n" -ForegroundColor Yellow
 
 
-if ($new_install -eq $true) {
+if ($new_install -eq $true -and (!([string]::IsNullOrEmpty($args[0])))) {
     Write-Host "`r`nA restart is required for the changes to take effect. " -ForegroundColor Magenta -BackgroundColor Yellow
     # $confirmation = Read-Host "`r`nType 'reboot now' to reboot your computer now`r`n ..or hit ENTER to skip`r`n" 
     # if ($confirmation -ieq 'reboot now') {
