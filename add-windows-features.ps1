@@ -156,11 +156,11 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" -wait  
         wsl.exe --install --distribution kali-linux    
         start-sleep 10
-        $date_time = (Get-Date).ToUniversalTime()
-        $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
+        # $date_time = (Get-Date).ToUniversalTime()
+        # $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
         # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
-        start_dvlp_process_pop "
-        write-output 'enter `"exit`" or close window to continue';
+        start_dvlp_process_min "
+        write-output 'IMPORTANT: keep this window open' -ForeGroundColor Yellow;
         if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
             # wsl --install command successful .. wait for a distribution to be added to the list
             do {
