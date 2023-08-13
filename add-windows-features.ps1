@@ -88,9 +88,10 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --list | Out-Null
         if (!($?)){
             $new_install = $true
-            Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution. Want WSL1? Copy/pasta this:`r`n`t`twsl --set-version kali-linux 1`r`n`r`n" -ForegroundColor Yellow
+            Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             wsl.exe --set-default-version $wsl_default_version | Out-Null
-            wsl.exe --install --distribution kali-linux --no-launch
+            # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
+            wsl.exe --install --distribution kali-linux
             # wsl.exe --status
             if (!($?)){
                 # try {
