@@ -93,9 +93,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # wsl.exe --install
             # wsl.exe --install --distribution kali-linux --no-user
             if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
-                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" | Out-Null
-                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" 
-                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" 
+                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
+                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
             } else {
                 throw
             }
@@ -123,11 +122,18 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         } else {
             Write-Host "Windows Subsystem for Linux already installed." -ForegroundColor DarkCyan
         }
-    } catch {                
-        Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
-        Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
-        Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-        Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
+    } catch {              
+        try {
+            Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
+            Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
+            Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
+            Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
+        }  catch {
+            Remove-AppxPackage -package 'kali-linux'
+
+            MicrosoftCorporationII.WindowsSubsystemForLinux
+        }
+
     }
 }
 
