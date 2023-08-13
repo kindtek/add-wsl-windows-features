@@ -103,7 +103,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             $date_time = (Get-Date).ToUniversalTime()
             $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
-            start_dvlp_process_min "
+            start_dvlp_process_pop "
             # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
             write-output 'enter `'exit`' to continue'
             if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
