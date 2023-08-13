@@ -103,17 +103,18 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             $date_time = (Get-Date).ToUniversalTime()
             $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
-            start_dvlp_process_pop "
             # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
-            write-output 'enter `'exit`' to continue'
+            start_dvlp_process_pop "
+            write-output 'enter `"exit`" to continue';
             if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
                 # wsl --install command successful .. wait for a distribution to be added to the list
                 do {
                     # keep checking
-                    start-sleep 5
-                    wsl.exe --distribution kali-linux --status | Out-Null
-                } while (!(`$?))
-            }" 'wait'
+                    start-sleep 5;
+                    wsl.exe --distribution kali-linux --status | Out-Null;
+                } while (!(`$?));
+            }
+            exit;" 'wait'
             
             wsl.exe --set-default-version $wsl_default_version | Out-Null
             # # wsl.exe --list | Out-Null
