@@ -93,9 +93,9 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             wsl.exe --install --distribution kali-linux --no-launch
             # wsl.exe --status
             if (!($?)){
-                try {
-                    Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
-                } catch {}
+                # try {
+                #     # Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
+                # } catch {}
 
                 if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
                         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
