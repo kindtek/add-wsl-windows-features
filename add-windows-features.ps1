@@ -11,7 +11,7 @@ if ($install -ieq 'quit' -Or $install -ieq 'q') {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -ieq 'disabled') {
-    Write-Host "`r`nInstalling Hyper-V ..." -ForegroundColor DarkCyan
+    Write-Host -NoNewline "`r`nInstalling Hyper-V ..." -ForegroundColor DarkCyan
     Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit}" -Wait
     $new_install = $true
 } 
