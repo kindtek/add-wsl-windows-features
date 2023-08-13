@@ -92,7 +92,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
             # https://aka.ms/wsl2kernelmsix64
             Invoke-WebRequest -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
-            powershell.exe -executionpolicy remotesigned -File "$env:USERPROFILE/wsl2kernelmsix64.msi"
+            Invoke-Expression -Command "$env:USERPROFILE/wsl2kernelmsix64.msi"
             Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
             Write-Output 'user' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             wsl.exe --set-default-version $wsl_default_version | Out-Null
