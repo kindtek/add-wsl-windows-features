@@ -92,14 +92,14 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
             # https://aka.ms/wsl2kernelmsix64
             Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
-            Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" 
+            Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
             # Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
             Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             if ($?){
                 # wsl --install command successful .. wait for a distribution to be added to the list
                 do {
                     # keep checking
-                    wsl.exe --list | Out-Null
+                    wsl.exe --distribution kali-linux | Out-Null
                     start-sleep 5
                 } while (!($?))
             }
