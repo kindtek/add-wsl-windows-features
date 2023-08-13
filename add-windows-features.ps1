@@ -84,6 +84,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     $new_install = $true
     
 } else {
+    Write-Host "Continuing Windows Subsystem for Linux installation ..." -ForegroundColor DarkCyan
     try {
         wsl.exe --list | Out-Null
         if (!($?)){
@@ -91,21 +92,33 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
             # https://aka.ms/wsl2kernelmsix64
-            Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
+            # Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
             Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" | Out-Null
-            # Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
-            Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
-            if ($?){
+            try {
+                Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi"  
+            } catch {
+                Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000 | Out-Null
+                Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" 
+            }
+            # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
+            $date_time = (Get-Date).ToUniversalTime()
+            $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
+            start_dvlp_process_hide "
+            # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
+            write-output 'enter `'exit`' to continue'
+            if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
                 # wsl --install command successful .. wait for a distribution to be added to the list
                 do {
                     # keep checking
-                    wsl.exe --distribution kali-linux | Out-Null
                     start-sleep 5
-                } while (!($?))
-            }
+                    wsl.exe --distribution kali-linux --status | Out-Null
+                } while (!(`$?))
+            }" 'wait'
+            
             wsl.exe --set-default-version $wsl_default_version | Out-Null
             # # wsl.exe --list | Out-Null
             # # wsl.exe --install --distribution kali-linux --no-user
+            # Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
             # # if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
             # #     Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
             # #     Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing
