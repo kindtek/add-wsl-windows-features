@@ -96,31 +96,14 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
                 try {
                     Remove-AppxPackage -package 'MicrosoftCorporationII.WindowsSubsystemForLinux'
                 } catch {}
-                try {
-                    if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
-                        
-                        try {
-                            Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
-                            Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                            Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                            # Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
-                        } catch {
-                            try {
-                                Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
-                                Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
-                                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                                Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                            } catch {}
-                        }
-                    } else {
-                        Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile "$env:USERPROFILE/kali-linux.AppxBundle" -UseBasicParsing -TimeoutSec 3000
+
+                if (Test-Path -Path "$env:USERPROFILE/kali-linux.AppxBundle" ) {
                         Add-AppxPackage "$env:USERPROFILE/kali-linux.AppxBundle"
                         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
                         Add-AppxProvisionedPackage -Online -PackagePath "$env:USERPROFILE/kali-linux.AppxBundle"
-                        # Remove-Item -Path "$env:USERPROFILE/kali-linux.AppxBundle"
-                    }
-                } catch {}
-    
+                } else {
+                    throw
+                }    
             } else {
                 wsl.exe --update
                 if (!($?)){
