@@ -33,8 +33,10 @@ else {
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName MicrosoftWindowsPowerShellV2Root -Online).State -ieq 'enabled') {
-    Write-Host "Removing PowerShell 2.0 ..." -ForegroundColor DarkCyan
-    Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart;exit}" -Wait
+    Write-Host "Not Removing PowerShell 2.0 ..." -ForegroundColor Gray
+    Write-Host "To disable manually copypasta this:" -ForegroundColor Gray
+    Write-Host "`tDisable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart" -ForegroundColor Gray
+    # Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root -NoRestart;exit}" -Wait
 }
 else {
     Write-Host "PowerShell 2.0 is already disabled." -ForegroundColor DarkCyan
