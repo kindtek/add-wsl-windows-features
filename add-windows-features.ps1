@@ -90,7 +90,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         if (!($?)){
             Write-Host "Continuing Windows Subsystem for Linux installation ..." -ForegroundColor DarkCyan
             $new_install = $true
-            # Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
+            Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
             # https://aka.ms/wsl2kernelmsix64
             # Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 1000
