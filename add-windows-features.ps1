@@ -85,10 +85,10 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     $new_install = $true
     
 } else {
-    Write-Host "Continuing Windows Subsystem for Linux installation ..." -ForegroundColor DarkCyan
     try {
-        wsl.exe --list | Out-Null
+        wsl.exe --distribution kali-linux --status | Out-Null
         if (!($?)){
+            Write-Host "Continuing Windows Subsystem for Linux installation ..." -ForegroundColor DarkCyan
             $new_install = $true
             # Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
@@ -103,9 +103,6 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             }
             start-sleep 10
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
-            $date_time = (Get-Date).ToUniversalTime()
-            $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
-            # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
             start_dvlp_process_min "
             write-output 'IMPORTANT: keep this window open';
             if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
@@ -156,8 +153,6 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" -wait  
         wsl.exe --install --distribution kali-linux    
         start-sleep 10
-        # $date_time = (Get-Date).ToUniversalTime()
-        # $unix_time = [System.Math]::Truncate((Get-Date -Date $date_time -UFormat %s))
         # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
         start_dvlp_process_min "
         write-output 'IMPORTANT: keep this window open' -ForeGroundColor Yellow;
