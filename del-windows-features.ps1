@@ -13,7 +13,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).Sta
     Start-Process powershell -LoadUserProfile -WindowStyle minimized -ArgumentList "-command &{Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -NoRestart;exit}" -Wait
 } 
 else {
-    Write-Host "Hyper-V is already disabled." -ForegroundColor DarkCyan
+    Write-Host -nonewline "Hyper-V is already disabled." -ForegroundColor DarkCyan
 }
 
 if ($(Get-WindowsOptionalFeature -FeatureName HyperVisorPlatform -Online).State -ieq 'enabled') {
