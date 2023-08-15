@@ -101,7 +101,7 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
                 Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000 
                 Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" -wait | Out-Null
             }
-            start-sleep 10
+            Write-Host '... almost done'
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -ArgumentList  "-command", "wsl.exe  --install --distribution kali-linux"
             Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -Wait -ArgumentList "-command",
@@ -152,9 +152,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
     } catch {   
         Invoke-RestMethod -Uri https://aka.ms/wsl2kernelmsix64 -OutFile "$env:USERPROFILE/wsl2kernelmsix64.msi" -TimeoutSec 30000
         Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" -wait  
-        wsl.exe --install --distribution kali-linux    
-        start-sleep 10
-        # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
+        Write-Host '... almost done'
+        # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
         Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -ArgumentList  "-command", "wsl.exe  --install --distribution kali-linux"
         Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -Wait -ArgumentList "-command",
         "
