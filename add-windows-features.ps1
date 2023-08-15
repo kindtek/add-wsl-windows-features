@@ -105,8 +105,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
             start_dvlp_process_popmin "
             write-output 'IMPORTANT: keep this window open';
-            if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
-                # wsl --install command successful .. wait for a distribution to be added to the list
+            if (`$(wsl.exe --distribution kali-linux --status | Out-Null) -and !(`$?)){
+                # wsl -d command unsuccessful .. wait for a distribution to be added to the list
                 do {
                     # keep checking
                     `$(wsl.exe --distribution kali-linux --status | Out-Null);
@@ -156,8 +156,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
         start_dvlp_process_popmin "
         write-output 'IMPORTANT: keep this window open' -ForeGroundColor Yellow;
-        if (`$(wsl.exe --install --distribution kali-linux | Out-Null) -and `$?){
-            # wsl --install command successful .. wait for a distribution to be added to the list
+        if (`$(wsl.exe --distribution kali-linux --status | Out-Null) -and !(`$?)){
+            # wsl -d command unsuccessful .. wait for a distribution to be added to the list
             do {
                 # keep checking
                 `$(wsl.exe --distribution kali-linux --status | Out-Null);
