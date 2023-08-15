@@ -103,7 +103,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             }
             start-sleep 10
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
-            Start-Process powershell.exe -LoadUserProfile -WindowStyle minimized -Wait -ArgumentList "-noexit", "-command",
+            Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -ArgumentList  "-command", "wsl.exe  --install --distribution kali-linux"
+            Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -Wait -ArgumentList "-command",
             "
             write-output 'IMPORTANT: keep this window open';
             if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
@@ -154,7 +155,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --install --distribution kali-linux    
         start-sleep 10
         # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
-        Start-Process powershell.exe -LoadUserProfile -WindowStyle minimized -Wait -ArgumentList "-noexit", "-command",
+        Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -ArgumentList  "-command", "wsl.exe  --install --distribution kali-linux"
+        Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -Wait -ArgumentList "-command",
         "
         write-output 'IMPORTANT: keep this window open';
         if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
