@@ -103,17 +103,17 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             }
             start-sleep 10
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
-            Start-Process powershell.exe -LoadUserProfile -WindowStyle minimized -Wait -ArgumentList "-command {
-                write-output 'IMPORTANT: keep this window open';
-                if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
-                    # wsl -d command unsuccessful .. wait for a distribution to be added to the list
-                    do {
-                        # keep checking
-                        start-sleep 5;
-                        wsl.exe --distribution kali-linux --status | Out-Null;
-                    } while (!(`$?));
-                }
-            exit;}"
+            Start-Process powershell.exe -LoadUserProfile -WindowStyle minimized -Wait -ArgumentList "-noexit", "-command",
+            "
+            write-output 'IMPORTANT: keep this window open';
+            if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
+                # wsl -d command unsuccessful .. wait for a distribution to be added to the list
+                do {
+                    # keep checking
+                    start-sleep 5;
+                    wsl.exe --distribution kali-linux --status | Out-Null;
+                } while (!(`$?));
+            };exit;"
             
             wsl.exe --set-default-version $wsl_default_version | Out-Null
             # # wsl.exe --list | Out-Null
@@ -154,17 +154,17 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         wsl.exe --install --distribution kali-linux    
         start-sleep 10
         # if (`$(Write-Output "user$unix_time" '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux | Out-Null) -and $?){
-        Start-Process powershell.exe -LoadUserProfile -WindowStyle minimized -Wait -ArgumentList "-command {
-            write-output 'IMPORTANT: keep this window open';
-            if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
-                # wsl -d command unsuccessful .. wait for a distribution to be added to the list
-                do {
-                    # keep checking
-                    start-sleep 5;
-                    wsl.exe --distribution kali-linux --status | Out-Null;
-                } while (!(`$?));
-            }
-        exit;}"
+        Start-Process powershell.exe -LoadUserProfile -WindowStyle minimized -Wait -ArgumentList "-noexit", "-command",
+        "
+        write-output 'IMPORTANT: keep this window open';
+        if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
+            # wsl -d command unsuccessful .. wait for a distribution to be added to the list
+            do {
+                # keep checking
+                start-sleep 5;
+                wsl.exe --distribution kali-linux --status | Out-Null;
+            } while (!(`$?));
+        };exit;"
         
         wsl.exe --set-default-version $wsl_default_version | Out-Null  
         # try {
