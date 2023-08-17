@@ -103,8 +103,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
             }
             Write-Host '... almost done'
             # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
-            Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -ArgumentList  "-command", "wsl.exe  --install --distribution kali-linux"
-            Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -Wait -ArgumentList "-command",
+            Start-Process powershell.exe -LoadUserProfile -WindowStyle Minimized -ArgumentList  "-command", "wsl.exe --install --distribution kali-linux"
+            Start-Process powershell.exe -LoadUserProfile -WindowStyle Minimized -Wait -ArgumentList "-command",
             "
             write-output 'IMPORTANT: keep this window open';
             if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
@@ -154,8 +154,8 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         Start-Process "$env:USERPROFILE/wsl2kernelmsix64.msi" -wait  
         Write-Host '... almost done'
         # Write-Output 'user' '' '' '' '' '' '' '' 'exit' | wsl.exe --install --distribution kali-linux
-        Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -ArgumentList  "-command", "wsl.exe  --install --distribution kali-linux"
-        Start-Process powershell.exe -LoadUserProfile -WindowStyle Hidden -Wait -ArgumentList "-command",
+        Start-Process powershell.exe -LoadUserProfile -WindowStyle Minimized -ArgumentList  "-command", "wsl.exe --install --distribution kali-linux"
+        Start-Process powershell.exe -LoadUserProfile -WindowStyle Minimized -Wait -ArgumentList "-command",
         "
         write-output 'IMPORTANT: keep this window open';
         if (`$(wsl.exe --distribution kali-linux --status) -and (!(`$?))){
