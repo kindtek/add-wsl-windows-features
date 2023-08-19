@@ -90,6 +90,32 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
         if (!($?)){
             Write-Host "Continuing Windows Subsystem for Linux installation ..." -ForegroundColor DarkCyan
             $new_install = $true
+            try{
+                Start-Process powershell.exe -LoadUserProfile -WindowStyle Minimized -ArgumentList "-command",
+                "
+                try {
+                    wsl.exe --set-default-version $wsl_default_version | Out-Null
+                    wsl.exe --install;
+                } catch {
+                    Start-Process powershell.exe -LoadUserProfile -ArgumentList '-command', 'Write-Host `"restarting in five seconds. close this window to cancel`";Start-Sleep 6;Restart-Computer -Force;'
+                }
+                exit;"
+                Start-Process powershell.exe -LoadUserProfile -WindowStyle Minimized -Wait -ArgumentList "-command",
+                "
+                write-output 'IMPORTANT: keep this window open';
+                if (`$(wsl.exe --distribution Ubuntu --status) -and (!(`$?))){
+                    # wsl -d Ubuntu unsuccessful .. wait for the distribution to be added
+                    do {
+                        # keep checking
+                        start-sleep 5;
+                        wsl.exe --distribution Ubuntu --status | Out-Null;
+                    } while (!(`$?));
+                };exit;"
+                
+            } catch {
+                reboot prompt "reboot continue"
+            }
+            
             Write-Host "`r`nInstalling Kali Linux as underlying WSL2 distribution"
             # echo 'user' '' '' '' | wsl.exe --install --distribution kali-linux
             # https://aka.ms/wsl2kernelmsix64
@@ -116,7 +142,6 @@ if ($(Get-WindowsOptionalFeature -FeatureName Microsoft-Windows-Subsystem-Linux 
                 } while (!(`$?));
             };exit;"
             
-            wsl.exe --set-default-version $wsl_default_version | Out-Null
             # # wsl.exe --list | Out-Null
             # # wsl.exe --install --distribution kali-linux --no-user
             # Remove-Item "$env:USERPROFILE/wsl2kernelmsix64.msi" -Confirm:$false -Force -ErrorAction SilentlyContinue
